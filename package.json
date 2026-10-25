@@ -1,0 +1,78 @@
+{
+  "name": "dsh-ssh-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SSH/SFTP remote workspaces for DSH Desktop with local cache, conflict-safe sync, and remote terminals",
+  "author": "Wenbo Shi (WilShi)",
+  "license": "MIT",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/**",
+    "cordis.patch.yml"
+  ],
+  "engines": {
+    "node": "^22.19.0 || ^24.0.0"
+  },
+  "scripts": {
+    "build": "tsdown && node scripts/build-remote-helper.mjs",
+    "build:real-smoke": "tsdown --config tsdown.real-smoke.config.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --pool=threads --maxWorkers=1 --no-file-parallelism"
+  },
+  "dependencies": {
+    "ssh2": "1.17.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "4.0.2",
+    "@deepseek-ai/dsh-credentials": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-tools": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-workspace": "0.1.5-rc.2"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.2",
+    "@deepseek-ai/dsh-api-session-controller": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-client-ui-primitives": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-client-ui-renderer": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-client-ui-settings": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-client-ui-slots": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-client-ui-workspace": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-credentials": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-tools": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-workspace": "0.1.5-rc.2",
+    "@testing-library/dom": "^10.0.0",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^22.20.0",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/ssh2": "^1.15.5",
+    "happy-dom": "^15.11.7",
+    "lightningcss": "^1.32.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "tsdown": "0.22.2",
+    "typescript": "6.0.3",
+    "vitest": "4.1.8"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-workspace"
+      ],
+      "platform": "web"
+    }
+  }
+}
